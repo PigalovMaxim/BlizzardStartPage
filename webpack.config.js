@@ -17,7 +17,7 @@ const plugins = [
   }),
   new CleanWebpackPlugin(),
   new HTMLWebpackPlugin({
-    template: 'index.html',
+    template: './public/index.html',
     minify: {
       collapseWhitespace: !isDev,
       removeComments: !isDev,
@@ -30,11 +30,11 @@ const plugins = [
 ];
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
+  context: __dirname,
   mode,
   entry: './index.js',
   output: {
-    filename: isDev ? '[name].js' : '[contenthash]js',
+    filename: isDev ? '[name].js' : '[contenthash].js',
     path: path.resolve(__dirname, 'build'),
     assetModuleFilename: 'public/[contenthash][ext][query]',
   },
@@ -71,7 +71,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html.$/i,
+        test: /\.html$/i,
         loader: 'html-loader',
       },
       {
@@ -85,7 +85,7 @@ module.exports = {
         }
       },
       {
-        test: /\.module\.s[ac]ss.$/i,
+        test: /\.module\.s[ac]ss$/i,
         use: [
           isDev ? 'style-loader' : MiniCSSExtractPlugin.loader,
           {
